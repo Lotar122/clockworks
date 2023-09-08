@@ -24,7 +24,13 @@ namespace clockworks.Main
 
         public static void Main(string[] args)
         {
-            string path = @"../conf.sconfig";
+            string settingsPath = @"./settings.json";
+            string settings_raw = File.ReadAllText(settingsPath);
+            Settings? settings = JsonSerializer.Deserialize<Settings>(settings_raw);
+            string exit = "";
+            if(settings.dev == false) exit = "../";
+            if(settings.dev == true) exit = "./";
+            string path = exit + "conf.sconfig";
             string[] fCont = File.ReadAllLines(path);
             fpath = fCont[0];
             fpath = fpath.Replace("Resources", "");
@@ -32,7 +38,7 @@ namespace clockworks.Main
             fpath = fpath.Replace(" ", "");
             Console.WriteLine(fpath);
             if(fpath is null) fpath = "";
-            string rawJSON_Properties = File.ReadAllText(@"../" + fpath + "/Properties/properties.json");
+            string rawJSON_Properties = File.ReadAllText(exit + fpath + "/Properties/properties.json");
             Properties? _Properties = JsonSerializer.Deserialize<Properties>(rawJSON_Properties);
 
             if(_Properties is null)
