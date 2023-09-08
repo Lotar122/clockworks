@@ -1,0 +1,6 @@
+bin/
+sharpEngine.sln
+dobj/
+bin
+obj/Debug/net6.0/
+build/
