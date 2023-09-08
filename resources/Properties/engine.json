@@ -1,0 +1,14 @@
+[
+    {
+        "use": true,
+        "name": "onResize"
+    },
+    {
+        "use": true,
+        "name": "setup"
+    },
+    {
+        "use": true,
+        "name": "loop"
+    }
+]

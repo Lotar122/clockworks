@@ -1,0 +1,11 @@
+{
+    "Width": 1280,
+    "Height": 720,
+    "Icon" : {
+        "path": "./resources/icon.png"
+    },
+    "RenderFrequency": 60,
+    "APIVersion": "4.6",
+    "Title": "clock-works",
+    "VSync": true 
+}
