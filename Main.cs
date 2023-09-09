@@ -28,8 +28,11 @@ namespace clockworks.Main
             string settings_raw = File.ReadAllText(settingsPath);
             Settings? settings = JsonSerializer.Deserialize<Settings>(settings_raw);
             string exit = "";
+            if(settings is null) throw new NullReferenceException("something is wrong with the clockworks/settings");
             if(settings.dev == false) exit = "../";
             if(settings.dev == true) exit = "./";
+            Console.WriteLine(Directory.GetCurrentDirectory());
+            Console.WriteLine(exit);
             string path = exit + "conf.sconfig";
             string[] fCont = File.ReadAllLines(path);
             fpath = fCont[0];
@@ -43,21 +46,18 @@ namespace clockworks.Main
 
             if(_Properties is null)
             {
-                Console.WriteLine("it seems like the Properties/properties.json is not present");
-                return;
+                throw new NullReferenceException("something is wrong with the Properties/properties.json");
             }
             if(_Properties.Icon is null || _Properties.APIVersion is null)
             {
-                Console.WriteLine("something is wrong with the Properties/properties.json");
-                return;
+                throw new NullReferenceException("something is wrong with the Properties/properties.json");
             }
             if(_Properties.Icon.path is null)
             {
-                Console.WriteLine("something is wrong with the Properties/properties.json");
-                return;
+                throw new NullReferenceException("something is wrong with the Properties/properties.json");
             }
 
-            Image<Rgba32> image = SixLabors.ImageSharp.Image.Load<Rgba32>(@"../" + _Properties.Icon.path);
+            Image<Rgba32> image = SixLabors.ImageSharp.Image.Load<Rgba32>(exit + _Properties.Icon.path);
             // image.Mutate(x => x.Flip(FlipMode.Vertical));
             var pixels = new byte[4 * image.Width * image.Height];
             image.CopyPixelDataTo(pixels);
